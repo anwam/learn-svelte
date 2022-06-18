@@ -4,8 +4,6 @@
   export let age;
   export let gender;
   export let activityType;
-
-  $: bmi = Math.round((weight / Math.pow(height / 100, 2)) * 100) / 100;
 </script>
 
 <div class="calculator">
@@ -23,13 +21,13 @@
   </div>
 
   <div class="input">
-    <p>กิจกรรม</p>
+    <p>ออกกำลังกาย</p>
     <select bind:value={activityType} name="activity" id="activity">
       <option value={1}>ไม่ออกกำลังกาย</option>
-      <option value={2}>ออกกำลังกายเบาๆ (1-2 ครั้งต่อสัปดาห์)</option>
-      <option value={3}>ออกกำลังกายหนักปานกลาง (3-5 ครั้งต่อสัปดาห์)</option>
-      <option value={4}>ออกกำลังกายหนัก (6-7 ครั้งต่อสัปดาห์)</option>
-      <option value={5}>นักกีฬา (ออกวันละ 2 ครั้ง)</option>
+      <option value={2}>1-2 ครั้งต่อสัปดาห์</option>
+      <option value={3}>3-5 ครั้งต่อสัปดาห์</option>
+      <option value={4}>6-7 ครั้งต่อสัปดาห์</option>
+      <option value={5}>ออกวันละ 2 ครั้ง</option>
     </select>
   </div>
 
@@ -41,6 +39,9 @@
       placeholder="weight (kg)"
       bind:value={weight}
     />
+  </div>
+
+  <div class="input">
     <label for="height">ส่วนสูง</label>
     <input
       type="number"
@@ -49,17 +50,19 @@
       bind:value={height}
     />
   </div>
-
-  <p>ดัชนีมวลกาย: {bmi.toFixed(2)}</p>
 </div>
 
 <style>
   .calculator {
     display: flex;
     flex-direction: column;
-    background-color: hsl(203, 100%, 95%);
+    background-image: linear-gradient(
+      to bottom,
+      hsl(200, 100%, 90%),
+      hsl(250, 100%, 90%)
+    );
     padding: 16px;
-    border: 1px solid hsl(203, 100%, 75%);
+    border: 1px solid hsl(200, 100%, 75%);
     border-radius: 8px;
     gap: 16px;
   }
@@ -67,6 +70,7 @@
   .input {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 16px;
     align-items: center;
   }
@@ -83,7 +87,7 @@
   input,
   select {
     padding: 8px;
-    border: 1px solid hsl(203, 100%, 75%);
+    border: 1px solid hsl(200, 100%, 75%);
     border-radius: 8px;
   }
 </style>

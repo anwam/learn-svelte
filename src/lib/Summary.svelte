@@ -1,7 +1,5 @@
 <script>
-  export let genderText;
-  export let jobText;
-  export let age;
+  export let bmi;
   export let bmr;
   export let tdee;
   export let deficit;
@@ -10,25 +8,36 @@
 
 <div class="summary">
   <h2>Summary</h2>
-  <p>Gender: {genderText}</p>
-  <p>Activity Type: {jobText}</p>
-  <p>Age: {age}</p>
-  <p>BMR: {bmr.toFixed(2)}</p>
-  <p>TDEE: {tdee.toFixed(2)}</p>
-  <p>To get lean {deficit.toFixed(2)} kCal</p>
+  <p>ดัชนีมวลกาย: {Math.floor(bmi)}</p>
+  <p>BMR <span class="info">{bmr.toFixed(0)}</span>kCal</p>
+  <p>TDEE <span class="info">{tdee.toFixed(0)}</span> kCal</p>
+  <h3>ปริมาณพลังงานที่ควรได้รับ</h3>
+  <p>ลดไขมัน <span class="info">{deficit.toFixed(0)}</span> kCal</p>
   <p>
-    To get bulk {surplus.toFixed(2)} kCal
+    เพิ่มกล้ามเนื้อ <span class="info">{surplus.toFixed(0)}</span> kCal
   </p>
 </div>
 
 <style>
+  .info {
+    margin: 4px 8px;
+    padding: 4px 8px;
+    background-color: hsl(250, 100%, 70%);
+    border-radius: 8px;
+    color: hsl(250, 100%, 95%);
+    font-weight: bold;
+  }
   .summary {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    background-color: hsl(265, 100%, 95%);
+    background-image: linear-gradient(
+      to bottom,
+      hsl(250, 100%, 90%),
+      hsl(300, 100%, 90%)
+    );
     padding: 16px;
-    border: 1px solid hsl(265, 100%, 75%);
+    border: 1px solid hsl(250, 100%, 75%);
     border-radius: 8px;
     gap: 16px;
   }

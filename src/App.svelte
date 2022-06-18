@@ -9,6 +9,7 @@
   let age = Number(localStorage.getItem("age")) || 20;
   let job = Number(localStorage.getItem("job")) || 1;
 
+  $: bmi = Math.round((weight / Math.pow(height / 100, 2)) * 100) / 100;
   $: {
     // set localStorage
     localStorage.setItem("weight", weight.toFixed(2));
@@ -35,49 +36,24 @@
     }
   }
 
-  function getJobText(job) {
-    switch (job) {
-      case 1:
-        return "No Exercise";
-      case 2:
-        return "Light Exercise (1-2 Days a week)";
-      case 3:
-        return "Moderate Exercise (3-5 Days a week)";
-      case 4:
-        return "Heavy Exercise (6-7 Days a week)";
-      case 5:
-        return "Athlete (twice a day)";
-    }
-  }
   $: tdeeFactor = getTdeeFactorFromJob(job);
   $: bmr = gender === 1 ? bmrMale : bmrFemale;
   $: tdee = Math.round(bmr * tdeeFactor * 100) / 100;
   $: deficit = tdee - 500;
   $: surplus = tdee + 500;
-  $: genderText = gender === 1 ? "Male" : "Female";
-  $: jobText = getJobText(job);
 </script>
 
 <main class="app">
-  <h1>Nutrition Calculator</h1>
+  <h1 style="color: hsl(0, 0%, 85%)">Nutrition Calculator</h1>
   <Form bind:weight bind:height bind:age bind:activityType={job} bind:gender />
   <div class="report">
-    <Summary
-      bind:age
-      bind:bmr
-      bind:deficit
-      bind:genderText
-      bind:jobText
-      bind:surplus
-      bind:tdee
-    />
-    <Nutrient bind:weight />
+    <Summary bind:bmr bind:deficit bind:bmi bind:surplus bind:tdee />
+    <Nutrient bind:tdee />
   </div>
 </main>
 
 <style>
   .app {
-    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -85,7 +61,7 @@
 
   .report {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 16px;
   }
 </style>
