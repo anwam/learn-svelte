@@ -1,65 +1,91 @@
 <script>
-  import logo from './assets/svelte.png'
-  import Counter from './lib/Counter.svelte'
+  import "./main.css";
+  import Summary from "./lib/Summary.svelte";
+  import Form from "./lib/Form.svelte";
+  import Nutrient from "./lib/Nutrient.svelte";
+  let weight = Number(localStorage.getItem("weight")) || 70;
+  let height = Number(localStorage.getItem("height")) || 170;
+  let gender = Number(localStorage.getItem("gender")) || 1;
+  let age = Number(localStorage.getItem("age")) || 20;
+  let job = Number(localStorage.getItem("job")) || 1;
+
+  $: {
+    // set localStorage
+    localStorage.setItem("weight", weight.toFixed(2));
+    localStorage.setItem("height", height.toFixed(2));
+    localStorage.setItem("gender", gender.toString());
+    localStorage.setItem("age", age.toString());
+    localStorage.setItem("job", job.toString());
+  }
+
+  $: bmrMale = 66 + 13.7 * weight + 5 * height - 6.8 * age;
+  $: bmrFemale = 665 + 9.6 * weight + 1.8 * height - 4.7 * age;
+  function getTdeeFactorFromJob(job) {
+    switch (job) {
+      case 1:
+        return 1.2;
+      case 2:
+        return 1.375;
+      case 3:
+        return 1.55;
+      case 4:
+        return 1.725;
+      case 5:
+        return 1.9;
+    }
+  }
+
+  function getJobText(job) {
+    switch (job) {
+      case 1:
+        return "No Exercise";
+      case 2:
+        return "Light Exercise (1-2 Days a week)";
+      case 3:
+        return "Moderate Exercise (3-5 Days a week)";
+      case 4:
+        return "Heavy Exercise (6-7 Days a week)";
+      case 5:
+        return "Athlete (twice a day)";
+    }
+  }
+  $: tdeeFactor = getTdeeFactorFromJob(job);
+  $: bmr = gender === 1 ? bmrMale : bmrFemale;
+  $: tdee = Math.round(bmr * tdeeFactor * 100) / 100;
+  $: deficit = tdee - 500;
+  $: surplus = tdee + 500;
+  $: genderText = gender === 1 ? "Male" : "Female";
+  $: jobText = getJobText(job);
 </script>
 
-<main>
-  <img src={logo} alt="Svelte Logo" />
-  <h1>Hello world!</h1>
-
-  <Counter />
-
-  <p>
-    Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte
-    apps.
-  </p>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme">SvelteKit</a> for
-    the officially supported framework, also powered by Vite!
-  </p>
+<main class="app">
+  <h1>Nutrition Calculator</h1>
+  <Form bind:weight bind:height bind:age bind:activityType={job} bind:gender />
+  <div class="report">
+    <Summary
+      bind:age
+      bind:bmr
+      bind:deficit
+      bind:genderText
+      bind:jobText
+      bind:surplus
+      bind:tdee
+    />
+    <Nutrient bind:weight />
+  </div>
 </main>
 
 <style>
-  :root {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  .app {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
-
-  img {
-    height: 16rem;
-    width: 16rem;
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4rem;
-    font-weight: 100;
-    line-height: 1.1;
-    margin: 2rem auto;
-    max-width: 14rem;
-  }
-
-  p {
-    max-width: 14rem;
-    margin: 1rem auto;
-    line-height: 1.35;
-  }
-
-  @media (min-width: 480px) {
-    h1 {
-      max-width: none;
-    }
-
-    p {
-      max-width: none;
-    }
+  .report {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
   }
 </style>
