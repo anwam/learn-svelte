@@ -12,11 +12,11 @@
   $: bmi = Math.round((weight / Math.pow(height / 100, 2)) * 100) / 100;
   $: {
     // set localStorage
-    localStorage.setItem("weight", weight.toFixed(2));
-    localStorage.setItem("height", height.toFixed(2));
-    localStorage.setItem("gender", gender.toString());
-    localStorage.setItem("age", age.toString());
-    localStorage.setItem("job", job.toString());
+    if (weight !== null) localStorage.setItem("weight", weight?.toFixed(2));
+    if (height !== null) localStorage.setItem("height", height?.toFixed(2));
+    if (gender !== null) localStorage.setItem("gender", gender?.toString());
+    if (age !== null) localStorage.setItem("age", age?.toString());
+    if (job !== null) localStorage.setItem("job", job?.toString());
   }
 
   $: bmrMale = 66 + 13.7 * weight + 5 * height - 6.8 * age;
@@ -33,6 +33,8 @@
         return 1.725;
       case 5:
         return 1.9;
+      default:
+        return 1.2;
     }
   }
 

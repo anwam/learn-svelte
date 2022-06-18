@@ -18,13 +18,15 @@
     <span>P{proteinRatio}:C{carbRatio}:F{fatRatio}</span>
   </p>
   <p>
-    โปรตีน <span class="info">{protein.toFixed(2)} g</span>ได้ {proteinCalories}
+    โปรตีน <span class="info">{protein?.toFixed(2)} g</span>ได้ {proteinCalories}
     kCal
   </p>
   <p>
-    Carb <span class="info">{carb.toFixed(2)}g</span> ได้ {carbCalories} kCal
+    Carb <span class="info">{carb?.toFixed(2)}g</span> ได้ {carbCalories} kCal
   </p>
-  <p>ไขมัน <span class="info">{fat.toFixed(2)}g</span>ได้ {fatCalories} kCal</p>
+  <p>
+    ไขมัน <span class="info">{fat?.toFixed(2)}g</span>ได้ {fatCalories} kCal
+  </p>
 </div>
 
 <style>

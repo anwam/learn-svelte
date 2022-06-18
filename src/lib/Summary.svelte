@@ -9,12 +9,12 @@
 <div class="summary">
   <h2>Summary</h2>
   <p>ดัชนีมวลกาย: {Math.floor(bmi)}</p>
-  <p>BMR <span class="info">{bmr.toFixed(0)}</span>kCal</p>
-  <p>TDEE <span class="info">{tdee.toFixed(0)}</span> kCal</p>
+  <p>BMR <span class="info">{bmr?.toFixed(0)}</span>kCal</p>
+  <p>TDEE <span class="info">{tdee?.toFixed(0)}</span> kCal</p>
   <h3>ปริมาณพลังงานที่ควรได้รับ</h3>
-  <p>ลดไขมัน <span class="info">{deficit.toFixed(0)}</span> kCal</p>
+  <p>ลดไขมัน <span class="info">{deficit?.toFixed(0)}</span> kCal</p>
   <p>
-    เพิ่มกล้ามเนื้อ <span class="info">{surplus.toFixed(0)}</span> kCal
+    เพิ่มกล้ามเนื้อ <span class="info">{surplus?.toFixed(0)}</span> kCal
   </p>
 </div>
 
