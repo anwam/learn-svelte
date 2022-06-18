@@ -16,5 +16,7 @@ h6 {
 }
 
 body {
-  margin: 16px;
+  margin: 0 auto;
+  padding: 16px;
+  max-width: 480px;
 }
