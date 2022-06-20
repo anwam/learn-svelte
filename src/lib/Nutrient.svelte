@@ -3,11 +3,12 @@
   let proteinRatio = 35;
   let carbRatio = 40;
   let fatRatio = 25;
-  $: proteinCalories = Math.ceil((tdee * proteinRatio) / 100);
+  $: proteinCalories =
+    Math.round(Math.ceil((tdee * proteinRatio) / 100) / 10) * 10;
   $: protein = proteinCalories / 4;
-  $: carbCalories = Math.ceil((tdee * carbRatio) / 100);
+  $: carbCalories = Math.round(Math.ceil((tdee * carbRatio) / 100) / 10) * 10;
   $: carb = carbCalories / 4;
-  $: fatCalories = Math.ceil((tdee * fatRatio) / 100);
+  $: fatCalories = Math.round(Math.ceil((tdee * fatRatio) / 100) / 10) * 10;
   $: fat = fatCalories / 9;
 </script>
 

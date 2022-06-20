@@ -19,7 +19,8 @@
     if (job !== null) localStorage.setItem("job", job?.toString());
   }
 
-  $: bmrMale = 66 + 13.7 * weight + 5 * height - 6.8 * age;
+  $: bmrMale =
+    Math.round((66 + 13.7 * weight + 5 * height - 6.8 * age) / 10) * 10;
   $: bmrFemale = 665 + 9.6 * weight + 1.8 * height - 4.7 * age;
   function getTdeeFactorFromJob(job) {
     switch (job) {
@@ -40,7 +41,7 @@
 
   $: tdeeFactor = getTdeeFactorFromJob(job);
   $: bmr = gender === 1 ? bmrMale : bmrFemale;
-  $: tdee = Math.round(bmr * tdeeFactor * 100) / 100;
+  $: tdee = Math.round((bmr * tdeeFactor) / 10) * 10;
   $: deficit = tdee - 500;
   $: surplus = tdee + 500;
 </script>
